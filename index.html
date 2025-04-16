@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusConverter | Transforma CSV a JSON profesionalmente</title>
+  <link rel="icon" type="image/png" href="img/icono.png">
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="logo-container">
+        <i class="fas fa-code-branch logo-icon"></i>
+        <h1 class="logo-text">Nexus<span>Converter</span></h1>
+      </div>
+      <nav class="nav-menu">
+        <button class="nav-btn active" id="converter-btn">
+          <i class="fas fa-exchange-alt"></i> Convertir
+        </button>
+      </nav>
+    </header>
+
+    <main class="main-content">
+      <div class="converter-container">
+        <div class="upload-section" id="upload-section">
+          <div class="upload-card" id="drop-zone">
+            <i class="fas fa-file-csv upload-icon"></i>
+            <h2>Arrastra tu archivo CSV aquí</h2>
+            <p>o</p>
+            <label for="csv-upload" class="btn-primary">
+              <i class="fas fa-folder-open"></i> Seleccionar archivo
+              <input type="file" id="csv-upload" accept=".csv" hidden>
+            </label>
+            <div class="file-info" id="file-info">
+              <i class="fas fa-check-circle"></i>
+              <span id="file-name"></span>
+              <button class="btn-icon" id="clear-file">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+          <div class="options-panel">
+            <div class="option-group">
+              <label for="delimiter">Delimitador:</label>
+              <select id="delimiter">
+                <option value="," selected>Coma (,)</option>
+                <option value=";">Punto y coma (;)</option>
+                <option value="\t">Tabulación (\t)</option>
+                <option value="|">Pipe (|)</option>
+                <option value="custom">Personalizado</option>
+              </select>
+              <input type="text" id="custom-delimiter" placeholder="Escribe tu delimitador" style="display: none;" maxlength="1">
+            </div>
+            <div class="option-group">
+              <label for="header">Primera fila como encabezado:</label>
+              <label class="switch">
+                <input type="checkbox" id="header" checked>
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div class="option-group">
+              <label for="pretty">Formatear JSON:</label>
+              <label class="switch">
+                <input type="checkbox" id="pretty" checked>
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-bar">
+          <button class="btn-secondary" id="preview-btn" disabled>
+            <i class="fas fa-eye"></i> Vista previa
+          </button>
+          <button class="btn-primary" id="convert-btn" disabled>
+            <i class="fas fa-magic"></i> Convertir a JSON
+          </button>
+        </div>
+
+        <div class="result-section" id="result-section">
+          <div class="result-header">
+            <h3><i class="fas fa-file-code"></i> Resultado JSON</h3>
+            <div class="result-actions">
+              <button class="btn-icon" id="copy-json" title="Copiar JSON">
+                <i class="far fa-copy"></i>
+              </button>
+              <button class="btn-icon" id="download-json" title="Descargar JSON">
+                <i class="fas fa-download"></i>
+              </button>
+              <button class="btn-icon" id="expand-json" title="Expandir">
+                <i class="fas fa-expand"></i>
+              </button>
+            </div>
+          </div>
+          <div class="json-viewer" id="json-viewer">
+            <pre id="json-output">// Tu resultado JSON aparecerá aquí...</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="status-bar">
+        <div class="status-info" id="status-info">
+          <i class="fas fa-info-circle"></i> Listo para convertir
+        </div>
+        <div class="progress-bar" id="progress-bar">
+          <div class="progress-fill"></div>
+        </div>
+      </div>
+    </main>
+
+    <div class="modal" id="preview-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Vista previa de datos</h3>
+          <button class="btn-icon close-modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="data-preview" id="data-preview">
+            <table id="preview-table">
+              <!-- Tabla generada dinámicamente -->
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary close-modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Incluir Papa Parse para un parsing robusto -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
